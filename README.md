@@ -29,6 +29,7 @@ https://
 ## more
 本仓库只是“Linux内核之旅开源社区”中“GitHub平台”的一个部分，关于“GitHub平台”的全部介绍，请浏览：
 https://github.com/linuxkerneltravel/community/blob/master/KernelCode.md
+
 关于“Linux内核之旅开源社区”的总体介绍，请浏览：
 https://github.com/linuxkerneltravel/community
 
