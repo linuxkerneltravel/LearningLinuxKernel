@@ -22,8 +22,11 @@ void map_vclose(struct vm_area_struct *vma);
 /* device mmap */
 static int mapdrv_mmap(struct file *file, struct vm_area_struct *vma);
 static int mapdrv_open(struct inode *inode, struct file *file);
-/* vm area nopage */
-static int map_fault(struct vm_fault *vmf);
+/*
+ * vm area nopage
+ * 教学视频里面的代码返回值是 int ,这返回值在 5 版本里面返回的是 vm_fault_t
+ */
+static vm_fault_t map_fault(struct vm_fault *vmf);
 
 /*
   from kernel, 一个 c 实现的接口.
@@ -50,9 +53,6 @@ static struct vm_operations_struct map_vm_ops = {
 
 static char *vmalloc_area = NULL;
 
-MODULE_LICENSE("GPL");
-
-
 static int __init mapdrv_init(void)
 {
   int result;
@@ -77,7 +77,7 @@ static int __init mapdrv_init(void)
 
 static void __exit mapdrv_exit(void)
 {
-  unsigned virt_addr;
+  unsigned long virt_addr;
   /* unreserve all pages */
   for(virt_addr = (unsigned long)vmalloc_area;virt_addr <(unsigned long)vmalloc_area + MAPLEN; virt_addr += PAGE_SIZE){
     ClearPageReserved(vmalloc_to_page((void*) virt_addr));
@@ -88,7 +88,7 @@ static void __exit mapdrv_exit(void)
 }
 
 /* 实现 file_operation 的接口 */
-static int mapdrv_mmap(struct file *file, struct vm_area_static *vma)
+static int mapdrv_mmap(struct file *file, struct vm_area_struct *vma)
 {
   unsigned long offset = vma -> vm_pgoff << PAGE_SHIFT;
   unsigned long size = vma -> vm_end - vma->vm_start;
@@ -114,8 +114,23 @@ static int mapdrv_mmap(struct file *file, struct vm_area_static *vma)
   return 0;
 }
 
+static int mapdrv_open(struct inode *inode, struct file *file)
+{
+  printk("process: %s (%d) \n", current->comm, current -> pid);
+  return 0;
+}
 
-static int map_fault(struct vm_fault *vmf)
+void map_vopen(struct vm_area_struct *vma)
+{
+  printk("mapping vma is opened..\n");
+}
+
+void map_vclose(struct vm_area_struct *vma)
+{
+  printk("mapping vma is closed...\n");
+}
+
+static vm_fault_t map_fault(struct vm_fault *vmf)
 {
   struct page *page;
   void *page_ptr;
@@ -144,3 +159,5 @@ static int map_fault(struct vm_fault *vmf)
 
 module_init(mapdrv_init);
 module_exit(mapdrv_exit);
+
+MODULE_LICENSE("GPL");
