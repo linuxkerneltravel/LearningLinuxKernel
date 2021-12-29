@@ -12,7 +12,7 @@
 
 #define MAP_PAGE_COUNT 10
 #define MAPLEN (PAGE_SIZE * MAP_PAGE_COUNT)
-#define MAP_DEV_MAJOR 240
+#define MAP_DEV_MAJOR 190
 #define MAP_DEV_NAME "mapnopage"
 
 extern struct mm_struct init_mm;

@@ -1,3 +1,4 @@
+*.out
 *.o 
 *.dwo
 *.mod
