@@ -8,5 +8,5 @@ all:
 	make -C $(KERNELDIR) M=$(PWD) modules
 
 clean:
-	@rm -rf *.o *.mod.c *.mod.o *.ko *.order *.symvers .*.cmd .tmp_versions
+	@rm -rf *.o *.mod.c *.mod.o *.ko *.order *.symvers .*.cmd .tmp_versions *.mod *.dwo
 
