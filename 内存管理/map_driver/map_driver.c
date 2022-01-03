@@ -51,6 +51,7 @@ static struct vm_operations_struct map_vm_ops = {
   .fault = map_fault,
 };
 
+// 这个静态的 area 是 module 操作内存区域的关键。
 static char *vmalloc_area = NULL;
 
 static int __init mapdrv_init(void)
@@ -58,11 +59,13 @@ static int __init mapdrv_init(void)
   int result;
   unsigned long virt_addr;
   int i = 1;
-  // 申请设备号, 如果小于0, 申请失败. /dev/
+  // 申请设备号, 如果小于0, 申请失败.,并注册实现了设备的接口 /dev/
   result = register_chrdev(MAP_DEV_MAJOR, MAP_DEV_NAME, &mapdrvo_fops);
   if (result < 0) {
     return result;
   }
+  // 申请一块内存区域， 问： 这块内存区域是如何被设备使用起来的？ 
+  // 答： vmalloc_area 是一个 global 的变量， 将两个 operation 串接起来。  
   vmalloc_area = vmalloc(MAPLEN);
   virt_addr = (unsigned long) vmalloc_area;
   for(virt_addr = (unsigned long) vmalloc_area; virt_addr < (unsigned long) vmalloc_area + MAPLEN; virt_addr+=PAGE_SIZE) {
