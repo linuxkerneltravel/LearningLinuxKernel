@@ -16,7 +16,7 @@
 | 实验目录                                                                                                  | 说明          |
 | ----------------------------------------------------------------------------------------------------- | ----------- |
 | [alloc_mm](https://github.com/linuxkerneltravel/LearningLinuxKernel/tree/master/mm/alloc_mm)          | 内核中内存的申请与释放 |
-| [map_driver](https://github.com/linuxkerneltravel/LearningLinuxKernel/tree/master/process/map_driver) | map的应用      |
+| [map_driver](https://github.com/linuxkerneltravel/LearningLinuxKernel/tree/master/mm/map_driver) | map的应用      |
 
 # 进程管理
 
