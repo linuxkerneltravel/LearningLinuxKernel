@@ -3,7 +3,7 @@
 
 |实验目录|说明|
 |--|--|
-|[hello](https://github.com/linuxkerneltravel/xyLinuxer/tree/master/LearningLinuxCode/Linux%E5%86%85%E6%A0%B8%E5%9F%BA%E7%A1%80/hello)|经典的内核模块入门实验|
+|[hello](https://github.com/linuxkerneltravel/LearningLinuxKernel/tree/master/basic/hello)|经典的内核模块入门实验|
 |exnum|使用内核中的函数求最大值和最小值|
 |lklist|内核链表的创建、遍历，删除，并将数据打印出来|
 |kernel_param|内核传参|
